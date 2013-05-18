@@ -6,4 +6,7 @@ Data Structures
 Java Collections packages has implementations based on different types of Binary trees like Red-Black and binary heap
 trees(Sets and priority queues) but the trees are hidden in the implementation. Whenever a reuirement demands a binary tree
 one ends up creating their our own classes to support the requirements. This projects aims to provide a good implementation and 
-definitions of various kinds of binary trees. 
+definitions of various kinds of binary trees.
+
+Object Pool
+This projects shows how to ceate object pools on fly in JAVA using apaches common pool
