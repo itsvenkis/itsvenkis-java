@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                         http://www.springframework.org/schema/util
+                         http://www.springframework.org/schema/util/spring-util-3.1.xsd
+                         http://www.springframework.org/schema/aop
+                         http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+                         http://www.springframework.org/schema/tx
+                         http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+                         http://www.springframework.org/schema/context
+                         http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+                         
+    <!-- scan this package for annotated controllers -->                 
+    <context:component-scan base-package="blog.itsvenkis.object.pool.controller"/>
+    
+    <!-- Define a annotation handler mapping and adapters -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+    
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+	</bean>
+    
+    <!-- Configures the Tiles layout system -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/views/views.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="loginController" class="blog.itsvenkis.object.pool.controller.LoginController" >
+		<property name="userSrvc" ref="userService" />
+	</bean>
+	
+	<bean id="userService" class="blog.itsvenkis.object.pool.UserService">
+		<property name="userObjectPool" ref="userObjectPool" />
+	</bean>
+	
+	<bean id="userFactory" class="blog.itsvenkis.object.pool.factory.ObjectPoolFactory" factory-method="newInstance">
+     	<constructor-arg type="java.lang.String" index="0" >
+     		<value>blog.itsvenkis.object.pool.User</value>
+     	</constructor-arg>
+     </bean>
+     
+     <bean id="userObjectPool" class="org.apache.commons.pool.impl.StackObjectPool">
+     	<constructor-arg ref="userFactory" index="0"/>
+     	<constructor-arg type="int" index="1">
+     		<value>20</value>
+     	</constructor-arg>
+     </bean>
+</beans>                         
