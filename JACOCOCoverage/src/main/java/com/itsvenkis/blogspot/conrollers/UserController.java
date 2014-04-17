@@ -34,14 +34,6 @@ public class UserController {
     @RequestMapping(value = "/save-users", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String saveUsers(@RequestBody List<IUser> users) {
         userService.saveUsers(users);
-        try{
-            Class rtClass = Thread.currentThread().getContextClassLoader().getParent().loadClass("org.jacoco.agent.rt.RT");
-            Object jacocoAgent = rtClass.getMethod("getAgent", null).invoke(null);
-            Method dumpMethod = jacocoAgent.getClass().getMethod("dump", boolean.class);
-            dumpMethod.invoke(jacocoAgent, false);
-        }catch(Exception e){
-              e.printStackTrace();
-        }
         return "Saved users successfully";
     }
 
