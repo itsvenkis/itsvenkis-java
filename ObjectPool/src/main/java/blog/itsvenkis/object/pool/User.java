@@ -5,7 +5,7 @@ import blog.itsvenkis.object.pool.domain.Poolable;
 /**
  * @author itsvenkis
  *         A simple Java bean
- *  merge example
+ *  merge example 123
  *
  */
 public class User implements Poolable{
