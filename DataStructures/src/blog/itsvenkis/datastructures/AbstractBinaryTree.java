@@ -1,6 +1,4 @@
 package blog.itsvenkis.datastructures;
-//TEST COMMIT 123 456
-//merge test
 public abstract class AbstractBinaryTree<E> implements Heap<E> {
 
 	private static final long serialVersionUID = -6331938602286520514L;
